@@ -33,7 +33,7 @@ jobs:
 
     - name: Build with Flet
       run: |
-        flet build apk --product "Flet PlayGround" --include-packages flet_webview flet_video flet_audio flet_audio_recorder flet_video
+        flet build apk --product "Flet PlayGround" --include-packages flet_webview flet_video flet_audio flet_audio_recorder
 
     - name: Create Release
       uses: actions/upload-artifact@v2
