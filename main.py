@@ -79,7 +79,7 @@ class RootView(ft.View):
                                 ),
                                 ft.ListTile(
                                     title=ft.TextField(label="height", ref=self.pagelet_data['height'], multiline=True,
-                                                       value="page.height",
+                                                       value="page.height - 80",
                                                        keyboard_type=ft.KeyboardType.NUMBER,
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
