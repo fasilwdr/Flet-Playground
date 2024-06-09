@@ -16,17 +16,18 @@ class ResultView(ft.View):
         self.appbar = ft.AppBar(title=ft.Text("Flet Playground Result"), bgcolor=ft.colors.SURFACE_VARIANT, center_title=True)
         self.controls = [
             ft.Pagelet(
-                ft.Pagelet(
-                    appbar=data.get('appbar'),
-                    content=data.get('content'),
-                    bgcolor=data.get('bgcolor'),
-                    bottom_app_bar=data.get('bottom_app_bar'),
-                    end_drawer=data.get('end_drawer'),
-                    floating_action_button=data.get('floating_action_button'),
-                    floating_action_button_location=data.get('floating_action_button_location'),
-                    width=data.get('width'),
-                    height=data.get('height'),
-                )
+                appbar=data.get('appbar'),
+                content=data.get('content'),
+                bgcolor=data.get('bgcolor'),
+                navigation_bar=data.get('navigation_bar'),
+                bottom_app_bar=data.get('bottom_app_bar'),
+                drawer=data.get('drawer'),
+                end_drawer=data.get('end_drawer'),
+                floating_action_button=data.get('floating_action_button'),
+                floating_action_button_location=data.get('floating_action_button_location'),
+                width=data.get('width'),
+                height=data.get('height'),
+                bottom_sheet=data.get('bottom_sheet'),
             )
         ]
 
@@ -45,10 +46,13 @@ class RootView(ft.View):
             'height': ft.Ref[ft.TextField](),
             'appbar': ft.Ref[ft.TextField](),
             'bgcolor': ft.Ref[ft.TextField](),
+            'drawer': ft.Ref[ft.TextField](),
+            'end_drawer': ft.Ref[ft.TextField](),
             'bottom_appbar': ft.Ref[ft.TextField](),
             'floating_action_button': ft.Ref[ft.TextField](),
             'floating_action_button_location': ft.Ref[ft.TextField](),
             'navigation_bar': ft.Ref[ft.TextField](),
+            'bottom_sheet': ft.Ref[ft.TextField](),
         }
         self.controls = [
             ft.AppBar(title=ft.Text("Flet Play Ground"), bgcolor=ft.colors.SURFACE_VARIANT, center_title=True),
@@ -67,14 +71,14 @@ class RootView(ft.View):
                             controls=[
                                 ft.ListTile(
                                     title=ft.TextField(label="width", ref=self.pagelet_data['width'], multiline=True,
-                                                       value="None",
+                                                       value="page.window_width",
                                                        keyboard_type=ft.KeyboardType.NUMBER,
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
                                 ),
                                 ft.ListTile(
                                     title=ft.TextField(label="height", ref=self.pagelet_data['height'], multiline=True,
-                                                       value="None",
+                                                       value="page.window_height",
                                                        keyboard_type=ft.KeyboardType.NUMBER,
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
@@ -111,6 +115,24 @@ class RootView(ft.View):
                                 ),
                                 ft.ListTile(
                                     title=ft.TextField(label="navigation_bar", ref=self.pagelet_data['navigation_bar'], multiline=True,
+                                                       value="None",
+                                                       expand=True,
+                                                       bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
+                                ),
+                                ft.ListTile(
+                                    title=ft.TextField(label="bottom_sheet", ref=self.pagelet_data['bottom_sheet'], multiline=True,
+                                                       value="None",
+                                                       expand=True,
+                                                       bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
+                                ),
+                                ft.ListTile(
+                                    title=ft.TextField(label="drawer", ref=self.pagelet_data['drawer'], multiline=True,
+                                                       value="None",
+                                                       expand=True,
+                                                       bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
+                                ),
+                                ft.ListTile(
+                                    title=ft.TextField(label="end_drawer", ref=self.pagelet_data['end_drawer'], multiline=True,
                                                        value="None",
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
@@ -160,6 +182,7 @@ class RootView(ft.View):
 
     def run_file(self, e):
         try:
+            page = self.page
             data = {
                 'width': eval(self.pagelet_data['width'].current.value),
                 'height': eval(self.pagelet_data['height'].current.value),
@@ -169,6 +192,9 @@ class RootView(ft.View):
                 'floating_action_button': eval(self.pagelet_data['floating_action_button'].current.value),
                 'floating_action_button_location': eval(self.pagelet_data['floating_action_button_location'].current.value),
                 'navigation_bar': eval(self.pagelet_data['navigation_bar'].current.value),
+                'bottom_sheet': eval(self.pagelet_data['bottom_sheet'].current.value),
+                'drawer': eval(self.pagelet_data['drawer'].current.value),
+                'end_drawer': eval(self.pagelet_data['end_drawer'].current.value),
             }
             controls = ft.Column(controls=[])
             for list_tile in self.flet_controls.current.controls:
