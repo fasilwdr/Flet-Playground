@@ -12,6 +12,7 @@ class ResultView(ft.View):
         super().__init__()
         self.page = page
         self.route = '/result'
+        self.padding = 0
         data = self.page.data
         self.appbar = ft.AppBar(title=ft.Text("Flet Playground Result"), bgcolor=ft.colors.SURFACE_VARIANT, center_title=True)
         self.controls = [
@@ -71,14 +72,14 @@ class RootView(ft.View):
                             controls=[
                                 ft.ListTile(
                                     title=ft.TextField(label="width", ref=self.pagelet_data['width'], multiline=True,
-                                                       value="page.window_width",
+                                                       value="page.width",
                                                        keyboard_type=ft.KeyboardType.NUMBER,
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
                                 ),
                                 ft.ListTile(
                                     title=ft.TextField(label="height", ref=self.pagelet_data['height'], multiline=True,
-                                                       value="page.window_height",
+                                                       value="page.height",
                                                        keyboard_type=ft.KeyboardType.NUMBER,
                                                        expand=True,
                                                        bgcolor=ft.colors.SURFACE_VARIANT, border=ft.InputBorder.NONE)
@@ -198,7 +199,8 @@ class RootView(ft.View):
             }
             controls = ft.Column(controls=[])
             for list_tile in self.flet_controls.current.controls:
-                controls.controls.append(eval(list_tile.title.value))
+                if list_tile.title.value != '':
+                    controls.controls.append(eval(list_tile.title.value))
             data['content'] = controls
             self.page.data = data
             self.page.update()
